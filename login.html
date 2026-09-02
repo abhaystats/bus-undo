@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Login — BusUndo</title>
+
+<meta name="description"
+      content="Login to BusUndo — Kerala Bus Information">
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+    min-height:100vh;
+
+    background:#f7f7f5;
+
+    color:#171717;
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header{
+
+    height:62px;
+
+    background:
+    rgba(255,255,255,.94);
+
+    border-bottom:
+    1px solid #e5e5e5;
+
+    display:flex;
+
+    align-items:center;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+    backdrop-filter:blur(12px);
+}
+
+
+.header-inner{
+
+    width:100%;
+
+    max-width:1080px;
+
+    margin:auto;
+
+    padding:0 18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    text-decoration:none;
+
+    color:#171717;
+
+    font-weight:800;
+
+    font-size:16px;
+
+    letter-spacing:-.5px;
+}
+
+
+.logo-mark{
+
+    width:32px;
+
+    height:32px;
+
+    border-radius:9px;
+
+    background:#171717;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:16px;
+}
+
+
+.logo-sub{
+
+    color:#a3a3a3;
+
+    font-size:9px;
+
+    margin-left:3px;
+
+    font-weight:600;
+}
+
+
+/* =====================================================
+   HEADER BUTTON
+===================================================== */
+
+.home-btn{
+
+    text-decoration:none;
+
+    color:#555;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    padding:8px 11px;
+
+    border-radius:7px;
+
+    transition:.2s;
+}
+
+
+.home-btn:hover{
+
+    background:#f1f1f1;
+
+    color:#111;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+main{
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:
+    45px 18px;
+}
+
+
+/* =====================================================
+   LOGIN CONTAINER
+===================================================== */
+
+.login-wrapper{
+
+    width:100%;
+
+    max-width:390px;
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.intro{
+
+    text-align:center;
+
+    margin-bottom:20px;
+}
+
+
+.intro-icon{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:13px;
+
+    background:#171717;
+
+    color:white;
+
+    margin:0 auto 15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:22px;
+
+    box-shadow:
+    0 8px 25px
+    rgba(0,0,0,.08);
+}
+
+
+.intro h1{
+
+    font-size:28px;
+
+    letter-spacing:-1.4px;
+
+    font-weight:850;
+
+    margin-bottom:5px;
+}
+
+
+.intro p{
+
+    font-size:10px;
+
+    color:#888;
+
+    line-height:1.5;
+}
+
+
+/* =====================================================
+   LOGIN CARD
+===================================================== */
+
+.login-card{
+
+    background:#fff;
+
+    border:
+    1px solid #e5e5e5;
+
+    border-radius:13px;
+
+    padding:21px;
+
+    box-shadow:
+    0 8px 30px
+    rgba(0,0,0,.035);
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-group{
+
+    margin-bottom:14px;
+}
+
+
+.form-group label{
+
+    display:block;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    color:#444;
+
+    margin-bottom:6px;
+}
+
+
+.input-wrapper{
+
+    position:relative;
+}
+
+
+.input-wrapper input{
+
+    width:100%;
+
+    height:42px;
+
+    border:
+    1px solid #dedede;
+
+    border-radius:8px;
+
+    padding:
+    0 12px;
+
+    background:#fafafa;
+
+    color:#171717;
+
+    outline:none;
+
+    font-size:11px;
+
+    transition:.2s;
+}
+
+
+.input-wrapper input:focus{
+
+    background:#fff;
+
+    border-color:#171717;
+
+    box-shadow:
+    0 0 0 3px
+    rgba(0,0,0,.05);
+}
+
+
+.input-wrapper input::placeholder{
+
+    color:#aaa;
+}
+
+
+/* =====================================================
+   PASSWORD TOGGLE
+===================================================== */
+
+.password-toggle{
+
+    position:absolute;
+
+    right:10px;
+
+    top:50%;
+
+    transform:
+    translateY(-50%);
+
+    border:0;
+
+    background:none;
+
+    color:#888;
+
+    font-size:10px;
+
+    cursor:pointer;
+}
+
+
+.password-toggle:hover{
+
+    color:#171717;
+}
+
+
+/* =====================================================
+   OPTIONS
+===================================================== */
+
+.form-options{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin:
+    2px 0 16px;
+}
+
+
+.remember{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    font-size:9px;
+
+    color:#777;
+
+    cursor:pointer;
+}
+
+
+.remember input{
+
+    accent-color:#171717;
+
+    width:12px;
+
+    height:12px;
+}
+
+
+.forgot{
+
+    color:#2563eb;
+
+    text-decoration:none;
+
+    font-size:9px;
+
+    font-weight:700;
+}
+
+
+.forgot:hover{
+
+    text-decoration:underline;
+}
+
+
+/* =====================================================
+   LOGIN BUTTON
+===================================================== */
+
+.login-button{
+
+    width:100%;
+
+    height:42px;
+
+    border:0;
+
+    border-radius:8px;
+
+    background:#171717;
+
+    color:white;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:
+    background .2s,
+    transform .2s;
+}
+
+
+.login-button:hover{
+
+    background:#333;
+
+    transform:
+    translateY(-1px);
+}
+
+
+.login-button:active{
+
+    transform:
+    translateY(0);
+}
+
+
+/* =====================================================
+   DIVIDER
+===================================================== */
+
+.divider{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin:18px 0;
+}
+
+
+.divider::before,
+.divider::after{
+
+    content:"";
+
+    height:1px;
+
+    background:#e8e8e8;
+
+    flex:1;
+}
+
+
+.divider span{
+
+    color:#aaa;
+
+    font-size:8px;
+
+    font-weight:600;
+}
+
+
+/* =====================================================
+   DEMO GOOGLE BUTTON
+===================================================== */
+
+.google-button{
+
+    width:100%;
+
+    height:40px;
+
+    border:
+    1px solid #dedede;
+
+    border-radius:8px;
+
+    background:white;
+
+    color:#444;
+
+    font-size:9px;
+
+    font-weight:750;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+}
+
+
+.google-button:hover{
+
+    background:#fafafa;
+
+    border-color:#bbb;
+}
+
+
+.google-icon{
+
+    font-size:12px;
+
+    font-weight:900;
+}
+
+
+/* =====================================================
+   SIGNUP
+===================================================== */
+
+.signup-text{
+
+    text-align:center;
+
+    margin-top:17px;
+
+    font-size:9px;
+
+    color:#888;
+}
+
+
+.signup-text a{
+
+    color:#171717;
+
+    font-weight:800;
+
+    text-decoration:none;
+}
+
+
+.signup-text a:hover{
+
+    text-decoration:underline;
+}
+
+
+/* =====================================================
+   SECURITY NOTE
+===================================================== */
+
+.security-note{
+
+    margin-top:13px;
+
+    text-align:center;
+
+    color:#aaa;
+
+    font-size:7.5px;
+
+    line-height:1.5;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+
+    border-top:
+    1px solid #e5e5e5;
+
+    background:white;
+
+    padding:17px 18px;
+
+    text-align:center;
+}
+
+
+.footer-inner{
+
+    max-width:1080px;
+
+    margin:auto;
+}
+
+
+.footer-copy{
+
+    color:#999;
+
+    font-size:8px;
+}
+
+
+.footer-links{
+
+    margin-top:6px;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:13px;
+}
+
+
+.footer-links a{
+
+    color:#777;
+
+    font-size:8px;
+
+    text-decoration:none;
+}
+
+
+.footer-links a:hover{
+
+    color:#171717;
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+
+    position:fixed;
+
+    bottom:20px;
+
+    left:50%;
+
+    transform:
+    translate(-50%,100px);
+
+    background:#171717;
+
+    color:white;
+
+    padding:
+    9px 13px;
+
+    border-radius:7px;
+
+    font-size:9px;
+
+    z-index:1000;
+
+    transition:.25s;
+}
+
+
+.toast.show{
+
+    transform:
+    translate(-50%,0);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:480px){
+
+    main{
+
+        padding:
+        35px 14px;
+    }
+
+
+    .login-card{
+
+        padding:18px;
+    }
+
+
+    .intro h1{
+
+        font-size:26px;
+    }
+
+
+    .home-btn{
+
+        font-size:9px;
+
+        padding:7px 9px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+<div class="header-inner">
+
+
+<a href="index.html"
+   class="logo">
+
+<div class="logo-mark">
+🚌
+</div>
+
+<div>
+
+BusUndo
+
+<span class="logo-sub">
+Kerala
+</span>
+
+</div>
+
+</a>
+
+
+<a href="index.html"
+   class="home-btn">
+
+← Back to BusUndo
+
+</a>
+
+
+</div>
+
+</header>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main>
+
+
+<div class="login-wrapper">
+
+
+<!-- INTRO -->
+
+<div class="intro">
+
+<div class="intro-icon">
+🚌
+</div>
+
+<h1>
+Welcome back
+</h1>
+
+<p>
+Login to continue exploring Kerala's bus network.
+</p>
+
+</div>
+
+
+
+<!-- LOGIN CARD -->
+
+<div class="login-card">
+
+
+<form id="loginForm">
+
+
+<!-- EMAIL -->
+
+<div class="form-group">
+
+<label for="email">
+Email address
+</label>
+
+<div class="input-wrapper">
+
+<input
+type="email"
+id="email"
+name="email"
+placeholder="you@example.com"
+autocomplete="email"
+required>
+
+</div>
+
+</div>
+
+
+
+<!-- PASSWORD -->
+
+<div class="form-group">
+
+<label for="password">
+Password
+</label>
+
+<div class="input-wrapper">
+
+<input
+type="password"
+id="password"
+name="password"
+placeholder="Enter your password"
+autocomplete="current-password"
+required>
+
+<button
+type="button"
+class="password-toggle"
+onclick="togglePassword()"
+id="passwordToggle">
+
+Show
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- OPTIONS -->
+
+<div class="form-options">
+
+
+<label class="remember">
+
+<input
+type="checkbox"
+id="remember">
+
+Remember me
+
+</label>
+
+
+<a href="#"
+   class="forgot"
+   onclick="forgotPassword(event)">
+
+Forgot password?
+
+</a>
+
+
+</div>
+
+
+
+<!-- LOGIN -->
+
+<button
+type="submit"
+class="login-button">
+
+Login to BusUndo
+
+</button>
+
+
+</form>
+
+
+
+<!-- DIVIDER -->
+
+<div class="divider">
+
+<span>
+OR
+</span>
+
+</div>
+
+
+
+<!-- GOOGLE -->
+
+<button
+type="button"
+class="google-button"
+onclick="googleLogin()">
+
+<span class="google-icon">
+G
+</span>
+
+Continue with Google
+
+</button>
+
+
+</div>
+
+
+
+<!-- SIGNUP -->
+
+<div class="signup-text">
+
+Don't have an account?
+
+<a href="signup.html">
+Create one
+</a>
+
+</div>
+
+
+
+<!-- SECURITY -->
+
+<div class="security-note">
+
+🔒 Your account information is handled securely.
+<br>
+BusUndo authentication will be connected to a backend in a future version.
+
+</div>
+
+
+</div>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+<div class="footer-inner">
+
+<div class="footer-copy">
+
+© 2026 BusUndo · Kerala Bus Information
+
+</div>
+
+
+<div class="footer-links">
+
+<a href="index.html">
+Home
+</a>
+
+<a href="signup.html">
+Sign Up
+</a>
+
+<a href="#">
+Privacy
+</a>
+
+<a href="#">
+Terms
+</a>
+
+</div>
+
+</div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+id="toast"
+class="toast">
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   PASSWORD SHOW / HIDE
+===================================================== */
+
+function togglePassword(){
+
+    const password =
+        document.getElementById("password");
+
+    const button =
+        document.getElementById("passwordToggle");
+
+
+    if(password.type === "password"){
+
+        password.type = "text";
+
+        button.textContent = "Hide";
+
+    }
+    else{
+
+        password.type = "password";
+
+        button.textContent = "Show";
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+document
+.getElementById("loginForm")
+.addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+
+    const email =
+        document
+        .getElementById("email")
+        .value
+        .trim();
+
+
+    const password =
+        document
+        .getElementById("password")
+        .value;
+
+
+    if(!email || !password){
+
+        showToast(
+            "Please enter your email and password."
+        );
+
+        return;
+    }
+
+
+    /*
+       DEMO LOGIN
+
+       This currently does not connect
+       to a real database.
+
+       Backend authentication can be
+       added later using Firebase,
+       Supabase, or your own server.
+    */
+
+
+    showToast(
+        "Login successful! Welcome to BusUndo."
+    );
+
+
+    setTimeout(function(){
+
+        window.location.href =
+        "index.html";
+
+    },1200);
+
+});
+
+
+/* =====================================================
+   GOOGLE LOGIN
+===================================================== */
+
+function googleLogin(){
+
+    showToast(
+        "Google login will be connected soon."
+    );
+
+}
+
+
+/* =====================================================
+   FORGOT PASSWORD
+===================================================== */
+
+function forgotPassword(event){
+
+    event.preventDefault();
+
+    showToast(
+        "Password recovery will be available soon."
+    );
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+
+    setTimeout(function(){
+
+        toast.classList.remove("show");
+
+    },2500);
+
+}
+
+</script>
+
+
+</body>
+
+</html>

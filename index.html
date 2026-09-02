@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>BusUndo — Kerala Bus Status</title>
+
+<meta name="description"
+      content="BusUndo — Find buses, routes, timings and live bus updates across Kerala.">
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+    background:#f7f7f5;
+    color:#171717;
+
+    line-height:1.45;
+}
+
+button,
+input{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+:root{
+
+    --background:#f7f7f5;
+
+    --white:#ffffff;
+
+    --black:#171717;
+
+    --gray:#737373;
+
+    --light-gray:#a3a3a3;
+
+    --border:#e5e5e5;
+
+    --blue:#2563eb;
+
+    --blue-light:#eff6ff;
+
+    --green:#16a34a;
+
+    --green-light:#f0fdf4;
+
+    --orange:#f59e0b;
+
+    --red:#dc2626;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header{
+
+    width:100%;
+
+    height:62px;
+
+    background:
+    rgba(255,255,255,.92);
+
+    border-bottom:
+    1px solid var(--border);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    backdrop-filter:blur(12px);
+}
+
+
+.header-inner{
+
+    max-width:1080px;
+
+    height:100%;
+
+    margin:auto;
+
+    padding:0 18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    font-weight:800;
+
+    font-size:16px;
+
+    letter-spacing:-.4px;
+}
+
+
+.logo-mark{
+
+    width:32px;
+
+    height:32px;
+
+    border-radius:9px;
+
+    background:#171717;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:16px;
+}
+
+
+.logo-sub{
+
+    color:#a3a3a3;
+
+    font-size:9px;
+
+    font-weight:600;
+
+    margin-left:2px;
+}
+
+
+.header-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+}
+
+
+.header-link{
+
+    font-size:11px;
+
+    color:#666;
+
+    padding:7px 9px;
+
+    border-radius:7px;
+}
+
+
+.header-link:hover{
+
+    background:#f3f3f3;
+
+    color:#111;
+}
+
+
+.login-btn{
+
+    color:#444;
+}
+
+
+.signup-btn{
+
+    background:#171717;
+
+    color:white;
+
+    padding:7px 11px;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+main{
+
+    max-width:1080px;
+
+    margin:auto;
+
+    padding:
+    42px 18px 70px;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero{
+
+    max-width:760px;
+
+    margin:auto;
+
+    text-align:center;
+
+    padding:
+    35px 0 20px;
+}
+
+
+.hero-kicker{
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:1.2px;
+
+    color:#737373;
+
+    text-transform:uppercase;
+
+    margin-bottom:14px;
+}
+
+
+.hero h1{
+
+    font-size:
+    clamp(35px,6vw,58px);
+
+    line-height:1.02;
+
+    letter-spacing:-3px;
+
+    font-weight:850;
+
+    margin-bottom:14px;
+}
+
+
+.hero h1 span{
+
+    color:var(--blue);
+}
+
+
+.hero-description{
+
+    max-width:530px;
+
+    margin:auto;
+
+    color:#737373;
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-area{
+
+    max-width:760px;
+
+    margin:25px auto 0;
+}
+
+
+.search-card{
+
+    background:white;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:13px;
+
+    padding:8px;
+
+    box-shadow:
+    0 5px 20px
+    rgba(0,0,0,.035);
+}
+
+
+.search-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr 110px;
+
+    gap:7px;
+}
+
+
+.input-group{
+
+    border:
+    1px solid #e6e6e6;
+
+    background:#fafafa;
+
+    border-radius:8px;
+
+    padding:
+    8px 10px;
+
+    text-align:left;
+}
+
+
+.input-group label{
+
+    display:block;
+
+    font-size:8px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+    font-weight:800;
+
+    color:#999;
+
+    margin-bottom:1px;
+}
+
+
+.input-group input{
+
+    width:100%;
+
+    border:0;
+
+    outline:0;
+
+    background:transparent;
+
+    color:#222;
+
+    font-size:12px;
+
+    font-weight:650;
+}
+
+
+.search-button{
+
+    border:0;
+
+    border-radius:8px;
+
+    background:#171717;
+
+    color:white;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    transition:.2s;
+}
+
+
+.search-button:hover{
+
+    background:#333;
+}
+
+
+.location-line{
+
+    margin-top:10px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
+
+    font-size:10px;
+
+    color:#888;
+}
+
+
+.location-line strong{
+
+    color:#333;
+}
+
+
+.location-button{
+
+    border:0;
+
+    background:none;
+
+    color:var(--blue);
+
+    font-weight:750;
+
+    font-size:10px;
+}
+
+
+/* =====================================================
+   QUICK ACTIONS
+===================================================== */
+
+.quick-actions{
+
+    max-width:760px;
+
+    margin:15px auto 0;
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:8px;
+}
+
+
+.quick-card{
+
+    background:white;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:10px;
+
+    padding:12px;
+
+    text-align:left;
+
+    transition:.2s;
+}
+
+
+.quick-card:hover{
+
+    border-color:#cfcfcf;
+
+    transform:translateY(-1px);
+}
+
+
+.quick-icon{
+
+    font-size:15px;
+
+    margin-bottom:7px;
+}
+
+
+.quick-title{
+
+    font-size:11px;
+
+    font-weight:800;
+}
+
+
+.quick-description{
+
+    font-size:9px;
+
+    color:#888;
+
+    margin-top:2px;
+}
+
+
+/* =====================================================
+   ANNOUNCEMENT
+===================================================== */
+
+.announcement{
+
+    margin-top:28px;
+
+    background:white;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:11px;
+
+    padding:11px 13px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+}
+
+
+.announcement-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    font-size:10px;
+}
+
+
+.announcement-icon{
+
+    width:28px;
+
+    height:28

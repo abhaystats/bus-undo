@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Current Undo · Bus Updates</title>
+  <title>currentbus? — Live Bus Status</title>
   <!-- Font & Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Google Font (Inter) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -19,16 +19,14 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f4f6fa;
-      color: #1e293b;
-      padding: 20px 16px 40px;
+      background: #0b0e14;
+      color: #e8edf5;
+      padding: 16px 12px 40px;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
 
     .app-container {
-      max-width: 700px;
+      max-width: 780px;
       margin: 0 auto;
       width: 100%;
     }
@@ -38,521 +36,903 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
-      padding: 0 4px;
+      margin-bottom: 20px;
+      padding: 0 2px;
     }
 
     .header h1 {
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -0.3px;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #f1f5f9;
+    }
+
+    .header h1 i {
+      color: #3b82f6;
+      font-size: 28px;
+    }
+
+    .header h1 span {
+      font-weight: 400;
+      color: #94a3b8;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .header-actions button {
+      background: #1e293b;
+      border: 1px solid #334155;
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+      font-size: 16px;
+      color: #cbd5e1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .header-actions button:hover {
+      background: #2d3a4f;
+      border-color: #475569;
+      color: #f1f5f9;
+    }
+
+    /* tagline */
+    .tagline {
+      font-size: 15px;
+      font-weight: 500;
+      color: #e2e8f0;
+      margin-bottom: 6px;
+    }
+
+    .sub-tagline {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-bottom: 20px;
+      border-left: 4px solid #3b82f6;
+      padding-left: 14px;
+      background: #151e2c;
+      border-radius: 0 12px 12px 0;
+      padding: 12px 16px;
+      line-height: 1.5;
+    }
+
+    .sub-tagline i {
+      color: #3b82f6;
+      margin-right: 6px;
+    }
+
+    /* announcement */
+    .announcement {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 12px 18px;
+      font-size: 14px;
+      color: #cbd5e1;
+      margin-bottom: 24px;
+      border: 1px solid #2d3a4f;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .announcement i {
+      color: #3b82f6;
+      font-size: 16px;
+    }
+
+    /* route selector with pincode */
+    .route-selector {
+      background: #151e2c;
+      border-radius: 20px;
+      padding: 18px 20px;
+      border: 1px solid #2d3a4f;
+      margin-bottom: 24px;
+    }
+
+    .route-selector label {
+      font-weight: 600;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 6px;
+      color: #e2e8f0;
+    }
+
+    .route-selector .input-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .route-selector input {
+      flex: 1;
+      min-width: 140px;
+      padding: 12px 16px;
+      border-radius: 40px;
+      border: 1px solid #334155;
+      font-size: 15px;
+      font-weight: 500;
+      background: #0f172a;
+      color: #f1f5f9;
+      transition: 0.2s;
+    }
+
+    .route-selector input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      background: #1a2538;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+    }
+
+    .route-selector .button-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #1e293b;
+      color: #cbd5e1;
+    }
+
+    .btn-primary {
+      background: #3b82f6;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #2563eb;
+      box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #334155;
+    }
+
+    .btn-outline:hover {
+      background: #1e293b;
+    }
+
+    .btn-success {
+      background: #22c55e;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: #16a34a;
+    }
+
+    .btn-danger {
+      background: #ef4444;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #dc2626;
+    }
+
+    .btn-sm {
+      padding: 6px 14px;
+      font-size: 13px;
+    }
+
+    /* pincode network section */
+    .pincode-network {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #1e293b;
+    }
+
+    .pincode-network .network-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .header h1 i {
-      color: #2563eb;
-      font-size: 28px;
+    .pincode-network .network-label i {
+      color: #3b82f6;
     }
 
-    .header-actions {
+    .pincode-chips {
       display: flex;
-      gap: 12px;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
-    .header-actions button {
-      background: white;
-      border: none;
-      width: 42px;
-      height: 42px;
+    .pincode-chip {
+      background: #1e293b;
+      padding: 5px 14px;
       border-radius: 30px;
-      font-size: 18px;
-      color: #1e293b;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.05);
-      transition: all 0.2s ease;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255,255,255,0.3);
-    }
-
-    .header-actions button:hover {
-      background: white;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
-      transform: scale(1.02);
-    }
-
-    .header-actions button:active {
-      transform: scale(0.94);
-    }
-
-    /* live badge */
-    .live-badge {
-      background: #dc2626;
-      color: white;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 12px 4px 10px;
-      border-radius: 40px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      letter-spacing: 0.3px;
-      margin-bottom: 20px;
-      margin-top: 4px;
-      width: fit-content;
-      backdrop-filter: blur(4px);
-      background: rgba(220, 38, 38, 0.9);
-      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25);
-    }
-
-    .live-badge i {
-      font-size: 10px;
-    }
-
-    /* card list */
-    .bus-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 4px;
-    }
-
-    .bus-card {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 24px;
-      padding: 18px 20px;
-      box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .bus-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 30px -10px rgba(0, 0, 0, 0.08);
-      background: rgba(255, 255, 255, 0.92);
-    }
-
-    .card-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px 12px;
-    }
-
-    .bus-line {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .bus-number {
-      font-weight: 700;
-      font-size: 22px;
-      letter-spacing: -0.5px;
-      background: #eef2ff;
-      color: #2563eb;
-      padding: 2px 14px 2px 12px;
-      border-radius: 40px;
-      line-height: 1.4;
-      background: rgba(37, 99, 235, 0.08);
-    }
-
-    .bus-destination {
-      font-weight: 500;
-      font-size: 17px;
-      color: #0b1e3a;
-    }
-
-    .status-tag {
       font-size: 13px;
-      font-weight: 600;
-      padding: 4px 14px 4px 12px;
-      border-radius: 40px;
-      background: #f1f5f9;
-      color: #334155;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-    }
-
-    .status-tag i {
-      font-size: 11px;
-    }
-
-    .status-tag.on-time { background: #dcfce7; color: #166534; }
-    .status-tag.delayed { background: #fee2e2; color: #991b1b; }
-    .status-tag.early { background: #dbeafe; color: #1e4a7a; }
-    .status-tag.cancelled { background: #f1f5f9; color: #475569; }
-
-    .time-location {
+      font-weight: 500;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+      cursor: pointer;
+      transition: 0.15s;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 6px;
+    }
+
+    .pincode-chip:hover {
+      background: #2d3a4f;
+      border-color: #475569;
+      color: #f1f5f9;
+    }
+
+    .pincode-chip .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .badge-dot.active { background: #22c55e; }
+    .badge-dot.delayed { background: #ef4444; }
+    .badge-dot.early { background: #3b82f6; }
+    .badge-dot.cancelled { background: #64748b; }
+
+    .quick-routes {
+      display: flex;
       flex-wrap: wrap;
-      font-size: 14px;
-      color: #475569;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .quick-routes .route-chip {
+      background: #1e293b;
+      padding: 5px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .quick-routes .route-chip:hover {
+      background: #2d3a4f;
+      border-color: #475569;
+      color: #f1f5f9;
+    }
+
+    /* stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: #151e2c;
+      border-radius: 18px;
+      padding: 16px 14px;
+      border: 1px solid #2d3a4f;
+      text-align: center;
+    }
+
+    .stat-card .stat-number {
+      font-size: 26px;
+      font-weight: 800;
+      color: #f1f5f9;
+      line-height: 1.2;
+    }
+
+    .stat-card .stat-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-top: 4px;
+    }
+
+    .stat-card .stat-sub {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    /* timeline */
+    .section-title {
+      font-weight: 700;
+      font-size: 18px;
+      margin: 28px 0 14px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #e2e8f0;
+    }
+
+    .section-title i {
+      color: #3b82f6;
+    }
+
+    .timeline-container {
+      background: #151e2c;
+      border-radius: 20px;
+      padding: 16px 18px;
+      border: 1px solid #2d3a4f;
+      margin-bottom: 20px;
+    }
+
+    .timeline-bar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      height: 36px;
+      margin: 8px 0 4px 0;
+    }
+
+    .timeline-segment {
+      flex: 1;
+      height: 100%;
+      border-radius: 6px;
+      background: #2d3a4f;
+      position: relative;
+      transition: 0.3s;
+      min-width: 6px;
+    }
+
+    .timeline-segment.active {
+      background: #3b82f6;
+    }
+
+    .timeline-segment.report {
+      background: #ef4444;
+    }
+
+    .timeline-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #64748b;
       margin-top: 2px;
     }
 
-    .time-location span {
+    /* route list */
+    .route-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .route-item {
+      background: #151e2c;
+      border-radius: 18px;
+      padding: 14px 18px;
+      border: 1px solid #2d3a4f;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      transition: 0.15s;
+    }
+
+    .route-item:hover {
+      background: #1a2538;
+      border-color: #3d4a60;
+    }
+
+    .route-name {
+      font-weight: 700;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #f1f5f9;
+    }
+
+    .route-name i {
+      color: #3b82f6;
+      width: 20px;
+    }
+
+    .route-status {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .status-badge {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 14px;
+      border-radius: 40px;
+      background: #1e293b;
+      color: #94a3b8;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-badge.on-time { background: #064e3b; color: #86efac; }
+    .status-badge.delayed { background: #7f1d1d; color: #fca5a5; }
+    .status-badge.early { background: #1e3a5f; color: #93c5fd; }
+    .status-badge.cancelled { background: #2d3a4f; color: #94a3b8; }
+
+    .route-reports {
+      font-size: 13px;
+      color: #94a3b8;
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    .time-location i {
+    .route-reports i {
       color: #64748b;
-      font-size: 14px;
-      width: 18px;
-      text-align: center;
     }
 
-    .time-location .highlight {
-      color: #0b1e3a;
-      font-weight: 500;
-    }
-
-    .undo-badge {
-      background: #f8fafc;
-      border-radius: 40px;
-      padding: 4px 14px 4px 12px;
-      font-size: 12px;
-      font-weight: 600;
-      color: #475569;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid #e2e8f0;
-      margin-left: auto;
-    }
-
-    .undo-badge i {
-      color: #2563eb;
-      font-size: 12px;
-    }
-
-    /* footer / update time */
     .footer-timestamp {
-      margin-top: 36px;
+      margin-top: 32px;
       text-align: center;
       font-size: 13px;
-      color: #94a3b8;
+      color: #64748b;
+      border-top: 1px solid #1e293b;
+      padding-top: 22px;
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 6px;
-      border-top: 1px solid #e9edf3;
-      padding-top: 24px;
-      letter-spacing: 0.2px;
+      flex-wrap: wrap;
     }
 
     .footer-timestamp i {
       font-size: 12px;
     }
 
-    .btn-undo {
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 40px;
-      padding: 10px 20px;
-      font-weight: 500;
-      font-size: 14px;
-      color: #1e293b;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(4px);
-      margin-top: 6px;
-    }
-
-    .btn-undo i {
-      color: #2563eb;
-    }
-
-    .btn-undo:hover {
-      background: white;
-      border-color: #b9c7e0;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04);
-    }
-
-    .btn-undo:active {
-      transform: scale(0.96);
-    }
-
-    .action-row {
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    /* responsive */
     @media (max-width: 480px) {
-      .header h1 { font-size: 20px; }
-      .bus-number { font-size: 19px; padding: 2px 12px; }
-      .bus-destination { font-size: 15px; }
-      .time-location { font-size: 13px; gap: 10px; }
-      .status-tag { font-size: 12px; padding: 3px 12px; }
+      .header h1 { font-size: 22px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .route-selector .input-group { flex-direction: column; align-items: stretch; }
+      .route-selector .button-group { justify-content: center; }
     }
   </style>
 </head>
 <body>
-  <div class="app-container">
+<div class="app-container">
 
-    <!-- Header -->
-    <div class="header">
-      <h1>
-        <i class="fas fa-bus"></i> 
-        <span>Current</span><span style="font-weight: 400; color: #475569;">Undo</span>
-      </h1>
-      <div class="header-actions">
-        <button id="refreshBtn" title="Refresh updates">
-          <i class="fas fa-rotate-right"></i>
-        </button>
-        <button id="undoBtn" title="Undo latest change (demo)">
-          <i class="fas fa-undo-alt"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Live badge -->
-    <div class="live-badge">
-      <i class="fas fa-circle" style="font-size: 8px;"></i> LIVE · bus updates
-    </div>
-
-    <!-- Bus list -->
-    <div class="bus-list" id="busList">
-      <!-- Cards will be injected by JS -->
-    </div>
-
-    <!-- Undo action row (secondary) -->
-    <div class="action-row">
-      <button class="btn-undo" id="undoButtonAlt">
-        <i class="fas fa-undo-alt"></i> Undo update
-      </button>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer-timestamp">
-      <i class="fas fa-clock"></i> 
-      <span id="timestampDisplay">updates every few seconds</span>
+  <!-- Header -->
+  <div class="header">
+    <h1>
+      <i class="fas fa-bus"></i>
+      <span>current</span><span>bus?</span>
+    </h1>
+    <div class="header-actions">
+      <button id="refreshBtn" title="Refresh"><i class="fas fa-sync-alt"></i></button>
+      <button id="undoBtn" title="Undo last report"><i class="fas fa-undo-alt"></i></button>
     </div>
   </div>
 
-  <script>
-    (function() {
-      "use strict";
+  <!-- Tagline -->
+  <div class="tagline">🚌 Is your bus on time?</div>
+  <div class="sub-tagline">
+    <i class="fas fa-map-pin"></i> Check live bus status, report delays, and see updates from your route.
+  </div>
 
-      // ----- bus data (simulated "Current Undo" style) -----
-      const busLines = [
-        { id: 'M1', destination: 'Central Station', status: 'on-time', time: '2 min', location: 'Market St' },
-        { id: 'M2', destination: 'Airport', status: 'delayed', time: '8 min', location: '5th Ave' },
-        { id: 'M3', destination: 'Westside Mall', status: 'early', time: '1 min', location: 'Maple Rd' },
-        { id: 'M4', destination: 'East Campus', status: 'on-time', time: '4 min', location: 'University Dr' },
-        { id: 'M5', destination: 'Downtown', status: 'cancelled', time: '—', location: '—' },
-      ];
+  <!-- Announcement -->
+  <div class="announcement">
+    <i class="fas fa-bullhorn"></i> No major service disruptions reported.
+  </div>
 
-      // status icons mapping
-      const statusIcons = {
-        'on-time': 'fa-check-circle',
-        'delayed': 'fa-clock',
-        'early': 'fa-hourglass-start',
-        'cancelled': 'fa-ban'
-      };
+  <!-- Route Selector with Pincode Network -->
+  <div class="route-selector">
+    <label for="routeInput"><i class="fas fa-route"></i> Your route number or name</label>
+    <div class="input-group">
+      <input type="text" id="routeInput" placeholder="e.g. M1, Airport Express" value="M1">
+      <div class="button-group">
+        <button class="btn btn-danger btn-sm" id="reportDelayBtn"><i class="fas fa-exclamation-triangle"></i> Report Delay</button>
+        <button class="btn btn-success btn-sm" id="reportOnTimeBtn"><i class="fas fa-check"></i> On Time</button>
+      </div>
+    </div>
 
-      // keep a history of last 5 states for "undo" (demo)
-      let stateHistory = [];
-      const MAX_HISTORY = 6;
+    <!-- Pincode Network Section -->
+    <div class="pincode-network">
+      <div class="network-label">
+        <i class="fas fa-network-wired"></i> Pincode Network · 6 areas
+      </div>
+      <div class="pincode-chips" id="pincodeChips">
+        <!-- dynamically injected -->
+      </div>
+    </div>
 
-      // current state (starts as a deep copy of busLines)
-      let currentBuses = busLines.map(b => ({ ...b }));
+    <div class="quick-routes">
+      <span class="route-chip" data-route="M1">M1</span>
+      <span class="route-chip" data-route="M2">M2</span>
+      <span class="route-chip" data-route="M3">M3</span>
+      <span class="route-chip" data-route="M4">M4</span>
+      <span class="route-chip" data-route="M5">M5</span>
+      <span class="route-chip" data-route="Airport">Airport</span>
+    </div>
+    <div style="font-size: 12px; color: #64748b; margin-top: 12px;">
+      <i class="fas fa-info-circle"></i> Each report resets after 10 minutes.
+    </div>
+  </div>
 
-      // DOM refs
-      const busListEl = document.getElementById('busList');
-      const timestampEl = document.getElementById('timestampDisplay');
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-number" id="totalRoutes">24</div>
+      <div class="stat-label">Total Routes</div>
+      <div class="stat-sub" id="activeRoutes">23 active</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="delayCount">3</div>
+      <div class="stat-label">Delays (30 min)</div>
+      <div class="stat-sub" id="delayMax">max 2</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="uptime">98.4%</div>
+      <div class="stat-label">7-Day Uptime</div>
+      <div class="stat-sub" id="reportCount">142 reports</div>
+    </div>
+  </div>
 
-      // Helper: render cards from currentBuses
-      function renderBuses(buses) {
-        if (!busListEl) return;
-        let html = '';
-        buses.forEach((bus, index) => {
-          const statusClass = bus.status || 'on-time';
-          const iconClass = statusIcons[statusClass] || 'fa-circle-info';
-          // format status label
-          const statusLabel = statusClass.charAt(0).toUpperCase() + statusClass.slice(1).replace('-', ' ');
+  <!-- Timeline -->
+  <div class="section-title">
+    <i class="fas fa-clock"></i> Delays — last 30 min
+    <span style="font-size: 14px; font-weight: 400; color: #94a3b8; margin-left: auto;" id="timelineCount">2 total</span>
+  </div>
+  <div class="timeline-container">
+    <div class="timeline-bar" id="timelineBar">
+      <!-- JS will fill -->
+    </div>
+    <div class="timeline-labels">
+      <span>30 min ago</span>
+      <span>now</span>
+    </div>
+  </div>
 
-          html += `
-            <div class="bus-card" data-bus-id="${bus.id}" data-index="${index}">
-              <div class="card-row">
-                <div class="bus-line">
-                  <span class="bus-number">${bus.id}</span>
-                  <span class="bus-destination">${bus.destination}</span>
-                </div>
-                <span class="status-tag ${statusClass}">
-                  <i class="fas ${iconClass}"></i> ${statusLabel}
-                </span>
-              </div>
-              <div class="card-row" style="margin-top: 2px;">
-                <div class="time-location">
-                  <span><i class="fas fa-clock"></i> <span class="highlight">${bus.time}</span></span>
-                  <span><i class="fas fa-location-dot"></i> ${bus.location}</span>
-                </div>
-                <!-- mini undo badge (just for design) -->
-                <span class="undo-badge"><i class="fas fa-undo-alt"></i> undo</span>
-              </div>
+  <!-- Route List -->
+  <div class="section-title">
+    <i class="fas fa-list-ul"></i> Route Status
+    <span style="font-size: 14px; font-weight: 400; color: #94a3b8; margin-left: auto;" id="routeCount">5 routes</span>
+  </div>
+  <div class="route-list" id="routeList">
+    <!-- JS injects -->
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-timestamp">
+    <i class="fas fa-clock"></i>
+    <span id="timestampDisplay">updates every few seconds</span>
+    <span style="margin-left: 8px;">·</span>
+    <span><i class="fas fa-undo-alt"></i> undo available</span>
+  </div>
+</div>
+
+<script>
+  (function() {
+    "use strict";
+
+    // ----- Bus data (like districts) -----
+    const routeData = [
+      { id: 'M1', destination: 'Central Station', status: 'on-time', time: '2 min', location: 'Market St', reports: 12 },
+      { id: 'M2', destination: 'Airport', status: 'delayed', time: '8 min', location: '5th Ave', reports: 8 },
+      { id: 'M3', destination: 'Westside Mall', status: 'early', time: '1 min', location: 'Maple Rd', reports: 5 },
+      { id: 'M4', destination: 'East Campus', status: 'on-time', time: '4 min', location: 'University Dr', reports: 19 },
+      { id: 'M5', destination: 'Downtown', status: 'cancelled', time: '—', location: '—', reports: 2 },
+      { id: 'Airport', destination: 'Airport Terminal', status: 'on-time', time: '6 min', location: 'Highway', reports: 7 },
+    ];
+
+    // Pincode network data (like power grid areas)
+    const pincodeData = [
+      { code: '682001', area: 'Ernakulam', status: 'active', routes: 4 },
+      { code: '695001', area: 'Thiruvananthapuram', status: 'delayed', routes: 3 },
+      { code: '680001', area: 'Thrissur', status: 'active', routes: 5 },
+      { code: '673001', area: 'Kozhikode', status: 'early', routes: 2 },
+      { code: '670001', area: 'Kannur', status: 'active', routes: 3 },
+      { code: '686001', area: 'Kottayam', status: 'cancelled', routes: 1 },
+    ];
+
+    const statusIcons = {
+      'on-time': 'fa-check-circle',
+      'delayed': 'fa-clock',
+      'early': 'fa-hourglass-start',
+      'cancelled': 'fa-ban'
+    };
+
+    const statusLabels = {
+      'on-time': 'On Time',
+      'delayed': 'Delayed',
+      'early': 'Early',
+      'cancelled': 'Cancelled'
+    };
+
+    // State
+    let currentRoutes = routeData.map(r => ({ ...r }));
+    let currentPincodes = pincodeData.map(p => ({ ...p }));
+    let stateHistory = [];
+    const MAX_HISTORY = 8;
+
+    // DOM
+    const routeListEl = document.getElementById('routeList');
+    const timestampEl = document.getElementById('timestampDisplay');
+    const timelineBar = document.getElementById('timelineBar');
+    const delayCountEl = document.getElementById('delayCount');
+    const activeRoutesEl = document.getElementById('activeRoutes');
+    const uptimeEl = document.getElementById('uptime');
+    const reportCountEl = document.getElementById('reportCount');
+    const timelineCountEl = document.getElementById('timelineCount');
+    const routeCountEl = document.getElementById('routeCount');
+    const pincodeChipsEl = document.getElementById('pincodeChips');
+
+    // Helpers
+    function getDelayCount() {
+      return currentRoutes.filter(r => r.status === 'delayed' || r.status === 'cancelled').length;
+    }
+
+    function getActiveCount() {
+      return currentRoutes.filter(r => r.status !== 'cancelled').length;
+    }
+
+    function calculateUptime() {
+      const total = currentRoutes.length;
+      const active = getActiveCount();
+      if (total === 0) return '100%';
+      return ((active / total) * 100).toFixed(1) + '%';
+    }
+
+    function getTotalReports() {
+      return currentRoutes.reduce((sum, r) => sum + (r.reports || 0), 0);
+    }
+
+    // Render pincode chips
+    function renderPincodes() {
+      if (!pincodeChipsEl) return;
+      let html = '';
+      currentPincodes.forEach(p => {
+        const statusClass = p.status || 'active';
+        const dotClass = statusClass === 'active' ? 'active' : 
+                         statusClass === 'delayed' ? 'delayed' :
+                         statusClass === 'early' ? 'early' : 'cancelled';
+        html += `
+          <span class="pincode-chip" data-code="${p.code}">
+            <span class="badge-dot ${dotClass}"></span>
+            ${p.code} · ${p.area}
+            <span style="font-size: 11px; color: #64748b; margin-left: 4px;">${p.routes}r</span>
+          </span>
+        `;
+      });
+      pincodeChipsEl.innerHTML = html;
+
+      // Add click to filter routes by pincode area (demo)
+      document.querySelectorAll('.pincode-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const code = chip.dataset.code;
+          const pincode = currentPincodes.find(p => p.code === code);
+          if (pincode) {
+            alert(`📍 ${pincode.area} (${code})\nRoutes in area: ${pincode.routes}\nStatus: ${pincode.status}`);
+            // In a real app, filter route list here
+          }
+        });
+      });
+    }
+
+    // Render routes
+    function renderRoutes() {
+      if (!routeListEl) return;
+      let html = '';
+      currentRoutes.forEach(route => {
+        const statusClass = route.status || 'on-time';
+        const iconClass = statusIcons[statusClass] || 'fa-circle-info';
+        const label = statusLabels[statusClass] || statusClass;
+
+        html += `
+          <div class="route-item" data-id="${route.id}">
+            <div class="route-name">
+              <i class="fas fa-bus"></i> ${route.id}
+              <span style="font-weight: 400; font-size: 14px; color: #94a3b8;">${route.destination}</span>
             </div>
-          `;
+            <div class="route-status">
+              <span class="status-badge ${statusClass}">
+                <i class="fas ${iconClass}"></i> ${label}
+              </span>
+              <span class="route-reports">
+                <i class="fas fa-flag"></i> ${route.reports || 0} reports
+              </span>
+            </div>
+          </div>
+        `;
+      });
+      routeListEl.innerHTML = html;
+      if (routeCountEl) routeCountEl.textContent = currentRoutes.length + ' routes';
+
+      // Update stats
+      const delayCount = getDelayCount();
+      if (delayCountEl) delayCountEl.textContent = delayCount;
+      const active = getActiveCount();
+      if (activeRoutesEl) activeRoutesEl.textContent = active + ' active';
+      if (uptimeEl) uptimeEl.textContent = calculateUptime();
+      if (reportCountEl) reportCountEl.textContent = getTotalReports() + ' reports';
+      if (timelineCountEl) timelineCountEl.textContent = delayCount + ' total';
+
+      // Timeline
+      renderTimeline(delayCount);
+
+      // Timestamp
+      if (timestampEl) {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        timestampEl.textContent = `updated ${timeStr} · tap undo`;
+      }
+    }
+
+    function renderTimeline(delayCount) {
+      if (!timelineBar) return;
+      const segments = 20;
+      let html = '';
+      const delaySegments = Math.min(delayCount, segments);
+      for (let i = 0; i < segments; i++) {
+        const isActive = i >= segments - delaySegments;
+        const cls = isActive ? 'timeline-segment report' : 'timeline-segment';
+        html += `<div class="${cls}"></div>`;
+      }
+      timelineBar.innerHTML = html;
+    }
+
+    // History
+    function pushHistory() {
+      const copy = currentRoutes.map(r => ({ ...r }));
+      stateHistory.push(copy);
+      if (stateHistory.length > MAX_HISTORY) stateHistory.shift();
+    }
+
+    function performUndo() {
+      if (stateHistory.length === 0) {
+        alert('No previous update to undo.');
+        return false;
+      }
+      const prev = stateHistory.pop();
+      currentRoutes = prev.map(r => ({ ...r }));
+      renderRoutes();
+      if (timestampEl) {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        timestampEl.textContent = `↩️ undo · reverted to ${timeStr}`;
+      }
+      return true;
+    }
+
+    // Report functions
+    function reportDelay(routeId) {
+      pushHistory();
+      const route = currentRoutes.find(r => r.id === routeId);
+      if (!route) { alert('Route not found'); return; }
+      if (route.status === 'cancelled') {
+        route.status = 'delayed';
+        route.time = '5 min';
+        route.location = 'Unknown';
+      } else {
+        route.status = 'delayed';
+        const mins = ['3 min', '5 min', '7 min', '10 min', '12 min'];
+        route.time = mins[Math.floor(Math.random() * mins.length)];
+        const locs = ['Main St', 'East Ave', 'West Blvd', 'Central', 'North Side'];
+        route.location = locs[Math.floor(Math.random() * locs.length)];
+      }
+      route.reports = (route.reports || 0) + 1;
+      // Also update a random pincode status to reflect network changes
+      updateRandomPincode('delayed');
+      renderPincodes();
+      renderRoutes();
+    }
+
+    function reportOnTime(routeId) {
+      pushHistory();
+      const route = currentRoutes.find(r => r.id === routeId);
+      if (!route) { alert('Route not found'); return; }
+      route.status = 'on-time';
+      const mins = ['1 min', '2 min', '3 min', '4 min', '5 min'];
+      route.time = mins[Math.floor(Math.random() * mins.length)];
+      const locs = ['Market St', '5th Ave', 'Maple Rd', 'University Dr', 'Downtown'];
+      route.location = locs[Math.floor(Math.random() * locs.length)];
+      route.reports = (route.reports || 0) + 1;
+      updateRandomPincode('active');
+      renderPincodes();
+      renderRoutes();
+    }
+
+    function updateRandomPincode(status) {
+      const idx = Math.floor(Math.random() * currentPincodes.length);
+      currentPincodes[idx].status = status;
+    }
+
+    function randomUpdate() {
+      pushHistory();
+      // Update route
+      const idx = Math.floor(Math.random() * currentRoutes.length);
+      const route = currentRoutes[idx];
+      if (!route) return;
+      const statuses = ['on-time', 'delayed', 'early', 'cancelled'];
+      let newStatus = statuses[Math.floor(Math.random() * statuses.length)];
+      while (newStatus === route.status && Math.random() > 0.4) {
+        newStatus = statuses[Math.floor(Math.random() * statuses.length)];
+      }
+      route.status = newStatus;
+      const mins = ['1 min', '2 min', '3 min', '4 min', '5 min', '7 min', '10 min', '—'];
+      route.time = mins[Math.floor(Math.random() * mins.length)];
+      const locs = ['Market St', '5th Ave', 'Maple Rd', 'University Dr', 'Downtown', 'Eastside', 'West Blvd'];
+      route.location = locs[Math.floor(Math.random() * locs.length)];
+      if (route.status === 'cancelled') {
+        route.time = '—';
+        route.location = '—';
+      }
+      route.reports = (route.reports || 0) + 1;
+
+      // Update pincode network
+      const pIdx = Math.floor(Math.random() * currentPincodes.length);
+      const pStatuses = ['active', 'delayed', 'early', 'cancelled'];
+      currentPincodes[pIdx].status = pStatuses[Math.floor(Math.random() * pStatuses.length)];
+      
+      renderPincodes();
+      renderRoutes();
+    }
+
+    // Init
+    function init() {
+      pushHistory();
+      renderPincodes();
+      renderRoutes();
+
+      // Event listeners
+      document.getElementById('refreshBtn')?.addEventListener('click', () => randomUpdate());
+      document.getElementById('undoBtn')?.addEventListener('click', () => performUndo());
+
+      document.getElementById('reportDelayBtn')?.addEventListener('click', () => {
+        const input = document.getElementById('routeInput');
+        const val = input.value.trim() || 'M1';
+        reportDelay(val);
+      });
+
+      document.getElementById('reportOnTimeBtn')?.addEventListener('click', () => {
+        const input = document.getElementById('routeInput');
+        const val = input.value.trim() || 'M1';
+        reportOnTime(val);
+      });
+
+      document.querySelectorAll('.route-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          const routeId = chip.dataset.route;
+          document.getElementById('routeInput').value = routeId;
         });
-        busListEl.innerHTML = html;
+      });
 
-        // update timestamp
-        if (timestampEl) {
-          const now = new Date();
-          const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-          timestampEl.textContent = `updated ${timeStr} · tap undo to revert`;
-        }
-      }
+      // Auto update
+      setInterval(() => randomUpdate(), 16000);
+    }
 
-      // Save current state to history (deep copy)
-      function pushHistory() {
-        const copy = currentBuses.map(b => ({ ...b }));
-        stateHistory.push(copy);
-        if (stateHistory.length > MAX_HISTORY) {
-          stateHistory.shift();
-        }
-      }
-
-      // Undo: revert to previous state (if exists)
-      function performUndo() {
-        if (stateHistory.length === 0) {
-          // optional: no history, but we can create a dummy alert
-          alert('No previous update to undo. Try refreshing!');
-          return false;
-        }
-        // pop the last state
-        const previousState = stateHistory.pop();
-        // set currentBuses to that state (deep copy)
-        currentBuses = previousState.map(b => ({ ...b }));
-        renderBuses(currentBuses);
-        // also update timestamp to reflect undo
-        if (timestampEl) {
-          const now = new Date();
-          const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-          timestampEl.textContent = `⏪ undo · reverted to ${timeStr}`;
-        }
-        return true;
-      }
-
-      // Simulate a "live" update: change random bus status/time/location
-      function applyRandomUpdate() {
-        // save current state to history before mutating
-        pushHistory();
-
-        // pick a random bus index
-        const idx = Math.floor(Math.random() * currentBuses.length);
-        const bus = currentBuses[idx];
-        if (!bus) return;
-
-        // randomise status
-        const statuses = ['on-time', 'delayed', 'early', 'cancelled'];
-        let newStatus = statuses[Math.floor(Math.random() * statuses.length)];
-        // avoid same status sometimes
-        while (newStatus === bus.status && Math.random() > 0.3) {
-          newStatus = statuses[Math.floor(Math.random() * statuses.length)];
-        }
-        bus.status = newStatus;
-
-        // randomise time (minutes)
-        const mins = ['1 min', '2 min', '3 min', '4 min', '5 min', '7 min', '10 min', '12 min', '—'];
-        bus.time = mins[Math.floor(Math.random() * mins.length)];
-
-        // randomise location (simple)
-        const locs = ['Market St', '5th Ave', 'Maple Rd', 'University Dr', 'Downtown', 'Eastside', 'West Blvd', 'Central'];
-        bus.location = locs[Math.floor(Math.random() * locs.length)];
-
-        // if cancelled, set time/location to '—'
-        if (bus.status === 'cancelled') {
-          bus.time = '—';
-          bus.location = '—';
-        }
-
-        // re-render
-        renderBuses(currentBuses);
-
-        // update timestamp
-        if (timestampEl) {
-          const now = new Date();
-          const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-          timestampEl.textContent = `🔄 updated ${timeStr} · (${bus.id} changed)`;
-        }
-      }
-
-      // ----- initial render & setup -----
-      function init() {
-        // initial history: save initial state
-        pushHistory();
-
-        // render
-        renderBuses(currentBuses);
-
-        // event listeners
-
-        // refresh button: apply a random update (simulate new bus data)
-        const refreshBtn = document.getElementById('refreshBtn');
-        if (refreshBtn) {
-          refreshBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            applyRandomUpdate();
-          });
-        }
-
-        // undo button (header)
-        const undoBtn = document.getElementById('undoBtn');
-        if (undoBtn) {
-          undoBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            performUndo();
-          });
-        }
-
-        // undo button (alternative, footer)
-        const undoAlt = document.getElementById('undoButtonAlt');
-        if (undoAlt) {
-          undoAlt.addEventListener('click', function(e) {
-            e.preventDefault();
-            performUndo();
-          });
-        }
-
-        // extra: every 12 seconds, auto-update to feel "live"
-        let autoInterval = setInterval(() => {
-          applyRandomUpdate();
-        }, 14000); // 14 seconds
-
-        // Clean up interval if needed (but it's fine)
-        window.addEventListener('beforeunload', function() {
-          if (autoInterval) clearInterval(autoInterval);
-        });
-      }
-
-      // start
-      init();
-
-    })();
-  </script>
+    init();
+  })();
+</script>
 </body>
 </html>

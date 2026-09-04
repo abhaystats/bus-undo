@@ -26,7 +26,7 @@
     }
 
     .app-container {
-      max-width: 780px;
+      max-width: 880px;
       margin: 0 auto;
       width: 100%;
     }
@@ -36,23 +36,25 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       padding: 0 2px;
+      flex-wrap: wrap;
+      gap: 12px;
     }
 
     .header h1 {
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 800;
       letter-spacing: -0.5px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       color: #f1f5f9;
     }
 
     .header h1 i {
       color: #3b82f6;
-      font-size: 28px;
+      font-size: 30px;
     }
 
     .header h1 span {
@@ -68,8 +70,8 @@
     .header-actions button {
       background: #1e293b;
       border: 1px solid #334155;
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: 40px;
       font-size: 16px;
       color: #cbd5e1;
@@ -86,6 +88,95 @@
       color: #f1f5f9;
     }
 
+    /* hero / landing banner with photo */
+    .hero-banner {
+      background: linear-gradient(145deg, #151e2c, #0f172a);
+      border-radius: 28px;
+      padding: 28px 24px;
+      margin-bottom: 28px;
+      border: 1px solid #2d3a4f;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .hero-content {
+      flex: 2;
+      min-width: 200px;
+    }
+
+    .hero-content .badge {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 40px;
+      padding: 4px 16px 4px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .hero-content .badge i {
+      color: #22c55e;
+      font-size: 10px;
+    }
+
+    .hero-content h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .hero-content p {
+      color: #94a3b8;
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 400px;
+    }
+
+    .hero-photo {
+      flex: 1;
+      min-width: 140px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-photo .photo-placeholder {
+      width: 100%;
+      max-width: 200px;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #1e293b, #2d3a4f);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #3d4a60;
+      color: #94a3b8;
+      font-size: 14px;
+      gap: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .hero-photo .photo-placeholder i {
+      font-size: 48px;
+      color: #3b82f6;
+      opacity: 0.6;
+    }
+
+    .hero-photo .photo-placeholder span {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
     /* tagline */
     .tagline {
       font-size: 15px;
@@ -97,7 +188,7 @@
     .sub-tagline {
       font-size: 14px;
       color: #94a3b8;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       border-left: 4px solid #3b82f6;
       padding-left: 14px;
       background: #151e2c;
@@ -123,11 +214,17 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
     }
 
     .announcement i {
       color: #3b82f6;
       font-size: 16px;
+    }
+
+    .announcement .highlight {
+      color: #f1f5f9;
+      font-weight: 600;
     }
 
     /* route selector with pincode */
@@ -237,7 +334,7 @@
       font-size: 13px;
     }
 
-    /* pincode network section */
+    /* pincode network */
     .pincode-network {
       margin-top: 16px;
       padding-top: 16px;
@@ -325,7 +422,7 @@
     /* stats */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 12px;
       margin-bottom: 24px;
     }
@@ -417,25 +514,23 @@
       margin-top: 2px;
     }
 
-    /* route list */
+    /* route list with fare & stops */
     .route-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
       margin-top: 6px;
     }
 
     .route-item {
       background: #151e2c;
-      border-radius: 18px;
-      padding: 14px 18px;
+      border-radius: 20px;
+      padding: 16px 20px;
       border: 1px solid #2d3a4f;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px 12px;
       transition: 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .route-item:hover {
@@ -443,9 +538,17 @@
       border-color: #3d4a60;
     }
 
+    .route-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+    }
+
     .route-name {
       font-weight: 700;
-      font-size: 16px;
+      font-size: 17px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -454,7 +557,8 @@
 
     .route-name i {
       color: #3b82f6;
-      width: 20px;
+      width: 22px;
+      font-size: 18px;
     }
 
     .route-status {
@@ -481,6 +585,48 @@
     .status-badge.early { background: #1e3a5f; color: #93c5fd; }
     .status-badge.cancelled { background: #2d3a4f; color: #94a3b8; }
 
+    .route-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 24px;
+      font-size: 14px;
+      color: #94a3b8;
+      padding-top: 8px;
+      border-top: 1px solid #1e293b;
+    }
+
+    .route-details .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .route-details .detail-item i {
+      color: #3b82f6;
+      width: 18px;
+      font-size: 14px;
+    }
+
+    .route-details .detail-item .value {
+      color: #e2e8f0;
+      font-weight: 500;
+    }
+
+    .route-details .stops-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 12px;
+    }
+
+    .route-details .stops-list .stop {
+      background: #1e293b;
+      padding: 2px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+      color: #cbd5e1;
+      border: 1px solid #2d3a4f;
+    }
+
     .route-reports {
       font-size: 13px;
       color: #94a3b8;
@@ -491,6 +637,47 @@
 
     .route-reports i {
       color: #64748b;
+    }
+
+    /* bus stop photo cards */
+    .stop-photos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin: 20px 0 8px 0;
+    }
+
+    .stop-photo-card {
+      background: #151e2c;
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid #2d3a4f;
+      text-align: center;
+      transition: 0.15s;
+    }
+
+    .stop-photo-card:hover {
+      background: #1a2538;
+      border-color: #3d4a60;
+    }
+
+    .stop-photo-card .photo-icon {
+      font-size: 36px;
+      color: #3b82f6;
+      opacity: 0.7;
+      margin-bottom: 6px;
+    }
+
+    .stop-photo-card .stop-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: #e2e8f0;
+    }
+
+    .stop-photo-card .stop-location {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 2px;
     }
 
     .footer-timestamp {
@@ -516,6 +703,11 @@
       .stats-grid { grid-template-columns: 1fr 1fr; }
       .route-selector .input-group { flex-direction: column; align-items: stretch; }
       .route-selector .button-group { justify-content: center; }
+      .hero-banner { flex-direction: column; text-align: center; }
+      .hero-content p { max-width: 100%; }
+      .route-main { flex-direction: column; align-items: stretch; }
+      .route-status { justify-content: space-between; }
+      .stop-photos { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -534,6 +726,24 @@
     </div>
   </div>
 
+  <!-- Hero Banner with Photo -->
+  <div class="hero-banner">
+    <div class="hero-content">
+      <div class="badge">
+        <i class="fas fa-circle"></i> Live · 14 routes active
+      </div>
+      <h2>Your city, on the move.</h2>
+      <p>Real-time bus tracking, fare info, stop details and community reports — all in one place.</p>
+    </div>
+    <div class="hero-photo">
+      <div class="photo-placeholder">
+        <i class="fas fa-city"></i>
+        <span>City Transport Hub</span>
+        <span style="font-size: 11px; opacity: 0.6;">📸 Photo: Downtown Terminal</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Tagline -->
   <div class="tagline">🚌 Is your bus on time?</div>
   <div class="sub-tagline">
@@ -542,10 +752,11 @@
 
   <!-- Announcement -->
   <div class="announcement">
-    <i class="fas fa-bullhorn"></i> No major service disruptions reported.
+    <i class="fas fa-bullhorn"></i> 
+    <span>No major disruptions. <span class="highlight">Fare update:</span> M2 Airport express now ₹120.</span>
   </div>
 
-  <!-- Route Selector with Pincode Network -->
+  <!-- Route Selector with Pincode -->
   <div class="route-selector">
     <label for="routeInput"><i class="fas fa-route"></i> Your route number or name</label>
     <div class="input-group">
@@ -556,13 +767,13 @@
       </div>
     </div>
 
-    <!-- Pincode Network Section -->
+    <!-- Pincode Network -->
     <div class="pincode-network">
       <div class="network-label">
         <i class="fas fa-network-wired"></i> Pincode Network · 6 areas
       </div>
       <div class="pincode-chips" id="pincodeChips">
-        <!-- dynamically injected -->
+        <!-- dynamic -->
       </div>
     </div>
 
@@ -598,6 +809,34 @@
     </div>
   </div>
 
+  <!-- Stop Photos Section -->
+  <div class="section-title">
+    <i class="fas fa-camera"></i> Bus Stops & Terminals
+    <span style="font-size: 14px; font-weight: 400; color: #94a3b8; margin-left: auto;">4 stops</span>
+  </div>
+  <div class="stop-photos">
+    <div class="stop-photo-card">
+      <div class="photo-icon"><i class="fas fa-landmark"></i></div>
+      <div class="stop-name">Central Station</div>
+      <div class="stop-location">📍 M1, M3, M5</div>
+    </div>
+    <div class="stop-photo-card">
+      <div class="photo-icon"><i class="fas fa-plane"></i></div>
+      <div class="stop-name">Airport Terminal</div>
+      <div class="stop-location">📍 M2, Airport Express</div>
+    </div>
+    <div class="stop-photo-card">
+      <div class="photo-icon"><i class="fas fa-shopping-cart"></i></div>
+      <div class="stop-name">Westside Mall</div>
+      <div class="stop-location">📍 M3, M4</div>
+    </div>
+    <div class="stop-photo-card">
+      <div class="photo-icon"><i class="fas fa-university"></i></div>
+      <div class="stop-name">East Campus</div>
+      <div class="stop-location">📍 M4, M5</div>
+    </div>
+  </div>
+
   <!-- Timeline -->
   <div class="section-title">
     <i class="fas fa-clock"></i> Delays — last 30 min
@@ -605,7 +844,7 @@
   </div>
   <div class="timeline-container">
     <div class="timeline-bar" id="timelineBar">
-      <!-- JS will fill -->
+      <!-- dynamic -->
     </div>
     <div class="timeline-labels">
       <span>30 min ago</span>
@@ -613,13 +852,13 @@
     </div>
   </div>
 
-  <!-- Route List -->
+  <!-- Route List with Fares & Stops -->
   <div class="section-title">
     <i class="fas fa-list-ul"></i> Route Status
     <span style="font-size: 14px; font-weight: 400; color: #94a3b8; margin-left: auto;" id="routeCount">5 routes</span>
   </div>
   <div class="route-list" id="routeList">
-    <!-- JS injects -->
+    <!-- dynamic -->
   </div>
 
   <!-- Footer -->
@@ -635,17 +874,35 @@
   (function() {
     "use strict";
 
-    // ----- Bus data (like districts) -----
+    // ----- Route data with fare, stops, photos -----
     const routeData = [
-      { id: 'M1', destination: 'Central Station', status: 'on-time', time: '2 min', location: 'Market St', reports: 12 },
-      { id: 'M2', destination: 'Airport', status: 'delayed', time: '8 min', location: '5th Ave', reports: 8 },
-      { id: 'M3', destination: 'Westside Mall', status: 'early', time: '1 min', location: 'Maple Rd', reports: 5 },
-      { id: 'M4', destination: 'East Campus', status: 'on-time', time: '4 min', location: 'University Dr', reports: 19 },
-      { id: 'M5', destination: 'Downtown', status: 'cancelled', time: '—', location: '—', reports: 2 },
-      { id: 'Airport', destination: 'Airport Terminal', status: 'on-time', time: '6 min', location: 'Highway', reports: 7 },
+      { 
+        id: 'M1', destination: 'Central Station', status: 'on-time', time: '2 min', location: 'Market St', 
+        fare: '₹25', stops: ['Main St', 'Park Ave', 'Central'], reports: 12 
+      },
+      { 
+        id: 'M2', destination: 'Airport', status: 'delayed', time: '8 min', location: '5th Ave', 
+        fare: '₹120', stops: ['5th Ave', 'Highway', 'Terminal'], reports: 8 
+      },
+      { 
+        id: 'M3', destination: 'Westside Mall', status: 'early', time: '1 min', location: 'Maple Rd', 
+        fare: '₹35', stops: ['Maple Rd', 'Oak St', 'Mall'], reports: 5 
+      },
+      { 
+        id: 'M4', destination: 'East Campus', status: 'on-time', time: '4 min', location: 'University Dr', 
+        fare: '₹40', stops: ['University Dr', 'Campus Gate', 'Library'], reports: 19 
+      },
+      { 
+        id: 'M5', destination: 'Downtown', status: 'cancelled', time: '—', location: '—', 
+        fare: '₹30', stops: ['Downtown', 'Court', 'Station'], reports: 2 
+      },
+      { 
+        id: 'Airport', destination: 'Airport Terminal', status: 'on-time', time: '6 min', location: 'Highway', 
+        fare: '₹150', stops: ['City Center', 'Highway', 'Terminal'], reports: 7 
+      },
     ];
 
-    // Pincode network data (like power grid areas)
+    // Pincode network
     const pincodeData = [
       { code: '682001', area: 'Ernakulam', status: 'active', routes: 4 },
       { code: '695001', area: 'Thiruvananthapuram', status: 'delayed', routes: 3 },
@@ -725,21 +982,9 @@
         `;
       });
       pincodeChipsEl.innerHTML = html;
-
-      // Add click to filter routes by pincode area (demo)
-      document.querySelectorAll('.pincode-chip').forEach(chip => {
-        chip.addEventListener('click', () => {
-          const code = chip.dataset.code;
-          const pincode = currentPincodes.find(p => p.code === code);
-          if (pincode) {
-            alert(`📍 ${pincode.area} (${code})\nRoutes in area: ${pincode.routes}\nStatus: ${pincode.status}`);
-            // In a real app, filter route list here
-          }
-        });
-      });
     }
 
-    // Render routes
+    // Render routes with fares and stops
     function renderRoutes() {
       if (!routeListEl) return;
       let html = '';
@@ -748,191 +993,30 @@
         const iconClass = statusIcons[statusClass] || 'fa-circle-info';
         const label = statusLabels[statusClass] || statusClass;
 
+        // Build stops html
+        const stopsHtml = route.stops && route.stops.length > 0 
+          ? route.stops.map(s => `<span class="stop">${s}</span>`).join('') 
+          : '<span class="stop" style="color:#64748b;">No stops listed</span>';
+
         html += `
           <div class="route-item" data-id="${route.id}">
-            <div class="route-name">
-              <i class="fas fa-bus"></i> ${route.id}
-              <span style="font-weight: 400; font-size: 14px; color: #94a3b8;">${route.destination}</span>
+            <div class="route-main">
+              <div class="route-name">
+                <i class="fas fa-bus"></i> ${route.id}
+                <span style="font-weight: 400; font-size: 14px; color: #94a3b8;">${route.destination}</span>
+              </div>
+              <div class="route-status">
+                <span class="status-badge ${statusClass}">
+                  <i class="fas ${iconClass}"></i> ${label}
+                </span>
+                <span class="route-reports">
+                  <i class="fas fa-flag"></i> ${route.reports || 0} reports
+                </span>
+              </div>
             </div>
-            <div class="route-status">
-              <span class="status-badge ${statusClass}">
-                <i class="fas ${iconClass}"></i> ${label}
+            <div class="route-details">
+              <span class="detail-item">
+                <i class="fas fa-ticket-alt"></i> Fare: <span class="value">${route.fare || 'N/A'}</span>
               </span>
-              <span class="route-reports">
-                <i class="fas fa-flag"></i> ${route.reports || 0} reports
-              </span>
-            </div>
-          </div>
-        `;
-      });
-      routeListEl.innerHTML = html;
-      if (routeCountEl) routeCountEl.textContent = currentRoutes.length + ' routes';
-
-      // Update stats
-      const delayCount = getDelayCount();
-      if (delayCountEl) delayCountEl.textContent = delayCount;
-      const active = getActiveCount();
-      if (activeRoutesEl) activeRoutesEl.textContent = active + ' active';
-      if (uptimeEl) uptimeEl.textContent = calculateUptime();
-      if (reportCountEl) reportCountEl.textContent = getTotalReports() + ' reports';
-      if (timelineCountEl) timelineCountEl.textContent = delayCount + ' total';
-
-      // Timeline
-      renderTimeline(delayCount);
-
-      // Timestamp
-      if (timestampEl) {
-        const now = new Date();
-        const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        timestampEl.textContent = `updated ${timeStr} · tap undo`;
-      }
-    }
-
-    function renderTimeline(delayCount) {
-      if (!timelineBar) return;
-      const segments = 20;
-      let html = '';
-      const delaySegments = Math.min(delayCount, segments);
-      for (let i = 0; i < segments; i++) {
-        const isActive = i >= segments - delaySegments;
-        const cls = isActive ? 'timeline-segment report' : 'timeline-segment';
-        html += `<div class="${cls}"></div>`;
-      }
-      timelineBar.innerHTML = html;
-    }
-
-    // History
-    function pushHistory() {
-      const copy = currentRoutes.map(r => ({ ...r }));
-      stateHistory.push(copy);
-      if (stateHistory.length > MAX_HISTORY) stateHistory.shift();
-    }
-
-    function performUndo() {
-      if (stateHistory.length === 0) {
-        alert('No previous update to undo.');
-        return false;
-      }
-      const prev = stateHistory.pop();
-      currentRoutes = prev.map(r => ({ ...r }));
-      renderRoutes();
-      if (timestampEl) {
-        const now = new Date();
-        const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        timestampEl.textContent = `↩️ undo · reverted to ${timeStr}`;
-      }
-      return true;
-    }
-
-    // Report functions
-    function reportDelay(routeId) {
-      pushHistory();
-      const route = currentRoutes.find(r => r.id === routeId);
-      if (!route) { alert('Route not found'); return; }
-      if (route.status === 'cancelled') {
-        route.status = 'delayed';
-        route.time = '5 min';
-        route.location = 'Unknown';
-      } else {
-        route.status = 'delayed';
-        const mins = ['3 min', '5 min', '7 min', '10 min', '12 min'];
-        route.time = mins[Math.floor(Math.random() * mins.length)];
-        const locs = ['Main St', 'East Ave', 'West Blvd', 'Central', 'North Side'];
-        route.location = locs[Math.floor(Math.random() * locs.length)];
-      }
-      route.reports = (route.reports || 0) + 1;
-      // Also update a random pincode status to reflect network changes
-      updateRandomPincode('delayed');
-      renderPincodes();
-      renderRoutes();
-    }
-
-    function reportOnTime(routeId) {
-      pushHistory();
-      const route = currentRoutes.find(r => r.id === routeId);
-      if (!route) { alert('Route not found'); return; }
-      route.status = 'on-time';
-      const mins = ['1 min', '2 min', '3 min', '4 min', '5 min'];
-      route.time = mins[Math.floor(Math.random() * mins.length)];
-      const locs = ['Market St', '5th Ave', 'Maple Rd', 'University Dr', 'Downtown'];
-      route.location = locs[Math.floor(Math.random() * locs.length)];
-      route.reports = (route.reports || 0) + 1;
-      updateRandomPincode('active');
-      renderPincodes();
-      renderRoutes();
-    }
-
-    function updateRandomPincode(status) {
-      const idx = Math.floor(Math.random() * currentPincodes.length);
-      currentPincodes[idx].status = status;
-    }
-
-    function randomUpdate() {
-      pushHistory();
-      // Update route
-      const idx = Math.floor(Math.random() * currentRoutes.length);
-      const route = currentRoutes[idx];
-      if (!route) return;
-      const statuses = ['on-time', 'delayed', 'early', 'cancelled'];
-      let newStatus = statuses[Math.floor(Math.random() * statuses.length)];
-      while (newStatus === route.status && Math.random() > 0.4) {
-        newStatus = statuses[Math.floor(Math.random() * statuses.length)];
-      }
-      route.status = newStatus;
-      const mins = ['1 min', '2 min', '3 min', '4 min', '5 min', '7 min', '10 min', '—'];
-      route.time = mins[Math.floor(Math.random() * mins.length)];
-      const locs = ['Market St', '5th Ave', 'Maple Rd', 'University Dr', 'Downtown', 'Eastside', 'West Blvd'];
-      route.location = locs[Math.floor(Math.random() * locs.length)];
-      if (route.status === 'cancelled') {
-        route.time = '—';
-        route.location = '—';
-      }
-      route.reports = (route.reports || 0) + 1;
-
-      // Update pincode network
-      const pIdx = Math.floor(Math.random() * currentPincodes.length);
-      const pStatuses = ['active', 'delayed', 'early', 'cancelled'];
-      currentPincodes[pIdx].status = pStatuses[Math.floor(Math.random() * pStatuses.length)];
-      
-      renderPincodes();
-      renderRoutes();
-    }
-
-    // Init
-    function init() {
-      pushHistory();
-      renderPincodes();
-      renderRoutes();
-
-      // Event listeners
-      document.getElementById('refreshBtn')?.addEventListener('click', () => randomUpdate());
-      document.getElementById('undoBtn')?.addEventListener('click', () => performUndo());
-
-      document.getElementById('reportDelayBtn')?.addEventListener('click', () => {
-        const input = document.getElementById('routeInput');
-        const val = input.value.trim() || 'M1';
-        reportDelay(val);
-      });
-
-      document.getElementById('reportOnTimeBtn')?.addEventListener('click', () => {
-        const input = document.getElementById('routeInput');
-        const val = input.value.trim() || 'M1';
-        reportOnTime(val);
-      });
-
-      document.querySelectorAll('.route-chip').forEach(chip => {
-        chip.addEventListener('click', () => {
-          const routeId = chip.dataset.route;
-          document.getElementById('routeInput').value = routeId;
-        });
-      });
-
-      // Auto update
-      setInterval(() => randomUpdate(), 16000);
-    }
-
-    init();
-  })();
-</script>
-</body>
-</html>
+              <span class="detail-item">
+                <i class="fas fa-clock"></i> ETA: <span class="value">${route.time

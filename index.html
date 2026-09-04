@@ -1,586 +1,558 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>BusUndo — Kerala Bus Status</title>
-
-<meta name="description"
-      content="BusUndo — Find buses, routes, timings and live bus updates across Kerala.">
-
-<style>
-
-/* =====================================================
-   RESET
-===================================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Arial,
-    sans-serif;
-
-    background:#f7f7f5;
-    color:#171717;
-
-    line-height:1.45;
-}
-
-button,
-input{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-
-/* =====================================================
-   VARIABLES
-===================================================== */
-
-:root{
-
-    --background:#f7f7f5;
-
-    --white:#ffffff;
-
-    --black:#171717;
-
-    --gray:#737373;
-
-    --light-gray:#a3a3a3;
-
-    --border:#e5e5e5;
-
-    --blue:#2563eb;
-
-    --blue-light:#eff6ff;
-
-    --green:#16a34a;
-
-    --green-light:#f0fdf4;
-
-    --orange:#f59e0b;
-
-    --red:#dc2626;
-
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-header{
-
-    width:100%;
-
-    height:62px;
-
-    background:
-    rgba(255,255,255,.92);
-
-    border-bottom:
-    1px solid var(--border);
-
-    position:sticky;
-
-    top:0;
-
-    z-index:1000;
-
-    backdrop-filter:blur(12px);
-}
-
-
-.header-inner{
-
-    max-width:1080px;
-
-    height:100%;
-
-    margin:auto;
-
-    padding:0 18px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-}
-
-
-.logo{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:9px;
-
-    font-weight:800;
-
-    font-size:16px;
-
-    letter-spacing:-.4px;
-}
-
-
-.logo-mark{
-
-    width:32px;
-
-    height:32px;
-
-    border-radius:9px;
-
-    background:#171717;
-
-    color:white;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    font-size:16px;
-}
-
-
-.logo-sub{
-
-    color:#a3a3a3;
-
-    font-size:9px;
-
-    font-weight:600;
-
-    margin-left:2px;
-}
-
-
-.header-right{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:5px;
-}
-
-
-.header-link{
-
-    font-size:11px;
-
-    color:#666;
-
-    padding:7px 9px;
-
-    border-radius:7px;
-}
-
-
-.header-link:hover{
-
-    background:#f3f3f3;
-
-    color:#111;
-}
-
-
-.login-btn{
-
-    color:#444;
-}
-
-
-.signup-btn{
-
-    background:#171717;
-
-    color:white;
-
-    padding:7px 11px;
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-main{
-
-    max-width:1080px;
-
-    margin:auto;
-
-    padding:
-    42px 18px 70px;
-}
-
-
-/* =====================================================
-   HERO
-===================================================== */
-
-.hero{
-
-    max-width:760px;
-
-    margin:auto;
-
-    text-align:center;
-
-    padding:
-    35px 0 20px;
-}
-
-
-.hero-kicker{
-
-    font-size:10px;
-
-    font-weight:800;
-
-    letter-spacing:1.2px;
-
-    color:#737373;
-
-    text-transform:uppercase;
-
-    margin-bottom:14px;
-}
-
-
-.hero h1{
-
-    font-size:
-    clamp(35px,6vw,58px);
-
-    line-height:1.02;
-
-    letter-spacing:-3px;
-
-    font-weight:850;
-
-    margin-bottom:14px;
-}
-
-
-.hero h1 span{
-
-    color:var(--blue);
-}
-
-
-.hero-description{
-
-    max-width:530px;
-
-    margin:auto;
-
-    color:#737373;
-
-    font-size:13px;
-
-    line-height:1.6;
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-.search-area{
-
-    max-width:760px;
-
-    margin:25px auto 0;
-}
-
-
-.search-card{
-
-    background:white;
-
-    border:
-    1px solid var(--border);
-
-    border-radius:13px;
-
-    padding:8px;
-
-    box-shadow:
-    0 5px 20px
-    rgba(0,0,0,.035);
-}
-
-
-.search-grid{
-
-    display:grid;
-
-    grid-template-columns:
-    1fr 1fr 110px;
-
-    gap:7px;
-}
-
-
-.input-group{
-
-    border:
-    1px solid #e6e6e6;
-
-    background:#fafafa;
-
-    border-radius:8px;
-
-    padding:
-    8px 10px;
-
-    text-align:left;
-}
-
-
-.input-group label{
-
-    display:block;
-
-    font-size:8px;
-
-    text-transform:uppercase;
-
-    letter-spacing:.5px;
-
-    font-weight:800;
-
-    color:#999;
-
-    margin-bottom:1px;
-}
-
-
-.input-group input{
-
-    width:100%;
-
-    border:0;
-
-    outline:0;
-
-    background:transparent;
-
-    color:#222;
-
-    font-size:12px;
-
-    font-weight:650;
-}
-
-
-.search-button{
-
-    border:0;
-
-    border-radius:8px;
-
-    background:#171717;
-
-    color:white;
-
-    font-size:11px;
-
-    font-weight:800;
-
-    transition:.2s;
-}
-
-
-.search-button:hover{
-
-    background:#333;
-}
-
-
-.location-line{
-
-    margin-top:10px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:6px;
-
-    font-size:10px;
-
-    color:#888;
-}
-
-
-.location-line strong{
-
-    color:#333;
-}
-
-
-.location-button{
-
-    border:0;
-
-    background:none;
-
-    color:var(--blue);
-
-    font-weight:750;
-
-    font-size:10px;
-}
-
-
-/* =====================================================
-   QUICK ACTIONS
-===================================================== */
-
-.quick-actions{
-
-    max-width:760px;
-
-    margin:15px auto 0;
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(3,1fr);
-
-    gap:8px;
-}
-
-
-.quick-card{
-
-    background:white;
-
-    border:
-    1px solid var(--border);
-
-    border-radius:10px;
-
-    padding:12px;
-
-    text-align:left;
-
-    transition:.2s;
-}
-
-
-.quick-card:hover{
-
-    border-color:#cfcfcf;
-
-    transform:translateY(-1px);
-}
-
-
-.quick-icon{
-
-    font-size:15px;
-
-    margin-bottom:7px;
-}
-
-
-.quick-title{
-
-    font-size:11px;
-
-    font-weight:800;
-}
-
-
-.quick-description{
-
-    font-size:9px;
-
-    color:#888;
-
-    margin-top:2px;
-}
-
-
-/* =====================================================
-   ANNOUNCEMENT
-===================================================== */
-
-.announcement{
-
-    margin-top:28px;
-
-    background:white;
-
-    border:
-    1px solid var(--border);
-
-    border-radius:11px;
-
-    padding:11px 13px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:15px;
-}
-
-
-.announcement-left{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:9px;
-
-    font-size:10px;
-}
-
-
-.announcement-icon{
-
-    width:28px;
-
-    height:28
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Current Undo · Bus Updates</title>
+  <!-- Font & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Font (Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f4f6fa;
+      color: #1e293b;
+      padding: 20px 16px 40px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-container {
+      max-width: 700px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding: 0 4px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header h1 i {
+      color: #2563eb;
+      font-size: 28px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .header-actions button {
+      background: white;
+      border: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 30px;
+      font-size: 18px;
+      color: #1e293b;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .header-actions button:hover {
+      background: white;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+      transform: scale(1.02);
+    }
+
+    .header-actions button:active {
+      transform: scale(0.94);
+    }
+
+    /* live badge */
+    .live-badge {
+      background: #dc2626;
+      color: white;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 12px 4px 10px;
+      border-radius: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.3px;
+      margin-bottom: 20px;
+      margin-top: 4px;
+      width: fit-content;
+      backdrop-filter: blur(4px);
+      background: rgba(220, 38, 38, 0.9);
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25);
+    }
+
+    .live-badge i {
+      font-size: 10px;
+    }
+
+    /* card list */
+    .bus-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 4px;
+    }
+
+    .bus-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 18px 20px;
+      box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bus-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 30px -10px rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .card-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+    }
+
+    .bus-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bus-number {
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.5px;
+      background: #eef2ff;
+      color: #2563eb;
+      padding: 2px 14px 2px 12px;
+      border-radius: 40px;
+      line-height: 1.4;
+      background: rgba(37, 99, 235, 0.08);
+    }
+
+    .bus-destination {
+      font-weight: 500;
+      font-size: 17px;
+      color: #0b1e3a;
+    }
+
+    .status-tag {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 14px 4px 12px;
+      border-radius: 40px;
+      background: #f1f5f9;
+      color: #334155;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .status-tag i {
+      font-size: 11px;
+    }
+
+    .status-tag.on-time { background: #dcfce7; color: #166534; }
+    .status-tag.delayed { background: #fee2e2; color: #991b1b; }
+    .status-tag.early { background: #dbeafe; color: #1e4a7a; }
+    .status-tag.cancelled { background: #f1f5f9; color: #475569; }
+
+    .time-location {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      color: #475569;
+      margin-top: 2px;
+    }
+
+    .time-location span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .time-location i {
+      color: #64748b;
+      font-size: 14px;
+      width: 18px;
+      text-align: center;
+    }
+
+    .time-location .highlight {
+      color: #0b1e3a;
+      font-weight: 500;
+    }
+
+    .undo-badge {
+      background: #f8fafc;
+      border-radius: 40px;
+      padding: 4px 14px 4px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #475569;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #e2e8f0;
+      margin-left: auto;
+    }
+
+    .undo-badge i {
+      color: #2563eb;
+      font-size: 12px;
+    }
+
+    /* footer / update time */
+    .footer-timestamp {
+      margin-top: 36px;
+      text-align: center;
+      font-size: 13px;
+      color: #94a3b8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      border-top: 1px solid #e9edf3;
+      padding-top: 24px;
+      letter-spacing: 0.2px;
+    }
+
+    .footer-timestamp i {
+      font-size: 12px;
+    }
+
+    .btn-undo {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 40px;
+      padding: 10px 20px;
+      font-weight: 500;
+      font-size: 14px;
+      color: #1e293b;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(4px);
+      margin-top: 6px;
+    }
+
+    .btn-undo i {
+      color: #2563eb;
+    }
+
+    .btn-undo:hover {
+      background: white;
+      border-color: #b9c7e0;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.04);
+    }
+
+    .btn-undo:active {
+      transform: scale(0.96);
+    }
+
+    .action-row {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* responsive */
+    @media (max-width: 480px) {
+      .header h1 { font-size: 20px; }
+      .bus-number { font-size: 19px; padding: 2px 12px; }
+      .bus-destination { font-size: 15px; }
+      .time-location { font-size: 13px; gap: 10px; }
+      .status-tag { font-size: 12px; padding: 3px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Header -->
+    <div class="header">
+      <h1>
+        <i class="fas fa-bus"></i> 
+        <span>Current</span><span style="font-weight: 400; color: #475569;">Undo</span>
+      </h1>
+      <div class="header-actions">
+        <button id="refreshBtn" title="Refresh updates">
+          <i class="fas fa-rotate-right"></i>
+        </button>
+        <button id="undoBtn" title="Undo latest change (demo)">
+          <i class="fas fa-undo-alt"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Live badge -->
+    <div class="live-badge">
+      <i class="fas fa-circle" style="font-size: 8px;"></i> LIVE · bus updates
+    </div>
+
+    <!-- Bus list -->
+    <div class="bus-list" id="busList">
+      <!-- Cards will be injected by JS -->
+    </div>
+
+    <!-- Undo action row (secondary) -->
+    <div class="action-row">
+      <button class="btn-undo" id="undoButtonAlt">
+        <i class="fas fa-undo-alt"></i> Undo update
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-timestamp">
+      <i class="fas fa-clock"></i> 
+      <span id="timestampDisplay">updates every few seconds</span>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      "use strict";
+
+      // ----- bus data (simulated "Current Undo" style) -----
+      const busLines = [
+        { id: 'M1', destination: 'Central Station', status: 'on-time', time: '2 min', location: 'Market St' },
+        { id: 'M2', destination: 'Airport', status: 'delayed', time: '8 min', location: '5th Ave' },
+        { id: 'M3', destination: 'Westside Mall', status: 'early', time: '1 min', location: 'Maple Rd' },
+        { id: 'M4', destination: 'East Campus', status: 'on-time', time: '4 min', location: 'University Dr' },
+        { id: 'M5', destination: 'Downtown', status: 'cancelled', time: '—', location: '—' },
+      ];
+
+      // status icons mapping
+      const statusIcons = {
+        'on-time': 'fa-check-circle',
+        'delayed': 'fa-clock',
+        'early': 'fa-hourglass-start',
+        'cancelled': 'fa-ban'
+      };
+
+      // keep a history of last 5 states for "undo" (demo)
+      let stateHistory = [];
+      const MAX_HISTORY = 6;
+
+      // current state (starts as a deep copy of busLines)
+      let currentBuses = busLines.map(b => ({ ...b }));
+
+      // DOM refs
+      const busListEl = document.getElementById('busList');
+      const timestampEl = document.getElementById('timestampDisplay');
+
+      // Helper: render cards from currentBuses
+      function renderBuses(buses) {
+        if (!busListEl) return;
+        let html = '';
+        buses.forEach((bus, index) => {
+          const statusClass = bus.status || 'on-time';
+          const iconClass = statusIcons[statusClass] || 'fa-circle-info';
+          // format status label
+          const statusLabel = statusClass.charAt(0).toUpperCase() + statusClass.slice(1).replace('-', ' ');
+
+          html += `
+            <div class="bus-card" data-bus-id="${bus.id}" data-index="${index}">
+              <div class="card-row">
+                <div class="bus-line">
+                  <span class="bus-number">${bus.id}</span>
+                  <span class="bus-destination">${bus.destination}</span>
+                </div>
+                <span class="status-tag ${statusClass}">
+                  <i class="fas ${iconClass}"></i> ${statusLabel}
+                </span>
+              </div>
+              <div class="card-row" style="margin-top: 2px;">
+                <div class="time-location">
+                  <span><i class="fas fa-clock"></i> <span class="highlight">${bus.time}</span></span>
+                  <span><i class="fas fa-location-dot"></i> ${bus.location}</span>
+                </div>
+                <!-- mini undo badge (just for design) -->
+                <span class="undo-badge"><i class="fas fa-undo-alt"></i> undo</span>
+              </div>
+            </div>
+          `;
+        });
+        busListEl.innerHTML = html;
+
+        // update timestamp
+        if (timestampEl) {
+          const now = new Date();
+          const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          timestampEl.textContent = `updated ${timeStr} · tap undo to revert`;
+        }
+      }
+
+      // Save current state to history (deep copy)
+      function pushHistory() {
+        const copy = currentBuses.map(b => ({ ...b }));
+        stateHistory.push(copy);
+        if (stateHistory.length > MAX_HISTORY) {
+          stateHistory.shift();
+        }
+      }
+
+      // Undo: revert to previous state (if exists)
+      function performUndo() {
+        if (stateHistory.length === 0) {
+          // optional: no history, but we can create a dummy alert
+          alert('No previous update to undo. Try refreshing!');
+          return false;
+        }
+        // pop the last state
+        const previousState = stateHistory.pop();
+        // set currentBuses to that state (deep copy)
+        currentBuses = previousState.map(b => ({ ...b }));
+        renderBuses(currentBuses);
+        // also update timestamp to reflect undo
+        if (timestampEl) {
+          const now = new Date();
+          const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          timestampEl.textContent = `⏪ undo · reverted to ${timeStr}`;
+        }
+        return true;
+      }
+
+      // Simulate a "live" update: change random bus status/time/location
+      function applyRandomUpdate() {
+        // save current state to history before mutating
+        pushHistory();
+
+        // pick a random bus index
+        const idx = Math.floor(Math.random() * currentBuses.length);
+        const bus = currentBuses[idx];
+        if (!bus) return;
+
+        // randomise status
+        const statuses = ['on-time', 'delayed', 'early', 'cancelled'];
+        let newStatus = statuses[Math.floor(Math.random() * statuses.length)];
+        // avoid same status sometimes
+        while (newStatus === bus.status && Math.random() > 0.3) {
+          newStatus = statuses[Math.floor(Math.random() * statuses.length)];
+        }
+        bus.status = newStatus;
+
+        // randomise time (minutes)
+        const mins = ['1 min', '2 min', '3 min', '4 min', '5 min', '7 min', '10 min', '12 min', '—'];
+        bus.time = mins[Math.floor(Math.random() * mins.length)];
+
+        // randomise location (simple)
+        const locs = ['Market St', '5th Ave', 'Maple Rd', 'University Dr', 'Downtown', 'Eastside', 'West Blvd', 'Central'];
+        bus.location = locs[Math.floor(Math.random() * locs.length)];
+
+        // if cancelled, set time/location to '—'
+        if (bus.status === 'cancelled') {
+          bus.time = '—';
+          bus.location = '—';
+        }
+
+        // re-render
+        renderBuses(currentBuses);
+
+        // update timestamp
+        if (timestampEl) {
+          const now = new Date();
+          const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          timestampEl.textContent = `🔄 updated ${timeStr} · (${bus.id} changed)`;
+        }
+      }
+
+      // ----- initial render & setup -----
+      function init() {
+        // initial history: save initial state
+        pushHistory();
+
+        // render
+        renderBuses(currentBuses);
+
+        // event listeners
+
+        // refresh button: apply a random update (simulate new bus data)
+        const refreshBtn = document.getElementById('refreshBtn');
+        if (refreshBtn) {
+          refreshBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            applyRandomUpdate();
+          });
+        }
+
+        // undo button (header)
+        const undoBtn = document.getElementById('undoBtn');
+        if (undoBtn) {
+          undoBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            performUndo();
+          });
+        }
+
+        // undo button (alternative, footer)
+        const undoAlt = document.getElementById('undoButtonAlt');
+        if (undoAlt) {
+          undoAlt.addEventListener('click', function(e) {
+            e.preventDefault();
+            performUndo();
+          });
+        }
+
+        // extra: every 12 seconds, auto-update to feel "live"
+        let autoInterval = setInterval(() => {
+          applyRandomUpdate();
+        }, 14000); // 14 seconds
+
+        // Clean up interval if needed (but it's fine)
+        window.addEventListener('beforeunload', function() {
+          if (autoInterval) clearInterval(autoInterval);
+        });
+      }
+
+      // start
+      init();
+
+    })();
+  </script>
+</body>
+</html>
